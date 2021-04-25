@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "module": "ESNext",
+    "target": "es6",
+    "allowJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "strict": true,
+    "lib": [
+      "ES2020"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "obsidian-bridge",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "MarginNote 3 --> Obsidian",
   "scripts": {
     "build": "rollup --config rollup.config.js",

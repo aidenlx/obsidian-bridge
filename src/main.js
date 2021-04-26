@@ -126,7 +126,7 @@ JSB.newAddon = function (mainPath) {
 
         if (this.recorder.isDuplicate(Date.now())) return;
 
-        /** @type {import("marginnote").MbBookNote} */
+        /** @type {import("@alx-plugins/marginnote").MbBookNote} */
         const src = sender.userInfo.note;
         try {
           copy(stringify(src,this.recorder));

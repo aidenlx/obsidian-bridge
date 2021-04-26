@@ -1,4 +1,4 @@
-import { MbBookNote } from "marginnote";
+import { MbBookNote } from "@alx-plugins/marginnote";
 
 export function assertNever(x: never): never {
   throw new Error("Unexpected object: " + JSON.stringify(x));

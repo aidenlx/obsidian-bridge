@@ -1,6 +1,6 @@
 {
   "name": "@alx-plugins/obsidian-bridge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MarginNote 3 --> Obsidian",
   "types": "src/modules/return.d.ts",
   "main": "",

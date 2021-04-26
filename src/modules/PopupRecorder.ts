@@ -1,4 +1,4 @@
-import { MbBookNote } from "./mn-api";
+import { MbBookNote } from "marginnote";
 
 export type selection = { sel: string }
 export type inHistory = selection | MbBookNote | undefined;

@@ -126,7 +126,7 @@ JSB.newAddon = function (mainPath) {
 
         if (this.recorder.isDuplicate(Date.now())) return;
 
-        /** @type {import("./modules/mn-api").MbBookNote} */
+        /** @type {import("marginnote").MbBookNote} */
         const src = sender.userInfo.note;
         try {
           copy(stringify(src,this.recorder));

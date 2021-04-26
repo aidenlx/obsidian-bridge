@@ -1,4 +1,4 @@
-import type { MbBookNote } from "./mn-api";
+import type { MbBookNote } from "marginnote";
 import { PopupRecorder, selection, item } from "./PopupRecorder";
 import { scanObject } from "./tools";
 

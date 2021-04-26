@@ -3,7 +3,7 @@ import { node, ReturnBody } from "./return";
 import { scanObject } from "./tools";
 
 
-function process<T extends node>(node: T, rec: PopupRecorder): ReturnBody<T> {
+function process(node: node, rec: PopupRecorder): ReturnBody {
   let data = isSel(node) ? node : scanObject(node, 2);
   const last = rec.last;
   rec.push(data);

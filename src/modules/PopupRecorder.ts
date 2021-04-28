@@ -1,4 +1,3 @@
-import { MbBookNote } from "@alx-plugins/marginnote";
 
 export type selection = { sel: string }
 export type inHistory = selection | MbBookNote | undefined;

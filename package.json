@@ -15,7 +15,7 @@
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
-    "@alx-plugins/marginnote": "^0.0.1",
+    "@alx-plugins/marginnote": "^0.5.4",
     "@release-it/bumper": "^2.0.0",
     "@release-it/conventional-changelog": "^2.0.1",
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -30,9 +30,6 @@
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
-  },
-  "peerDependencies": {
-    "@alx-plugins/marginnote": "^0.0.1"
   },
   "release-it": {
     "hooks": {

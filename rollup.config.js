@@ -11,7 +11,7 @@ if you want to view the source visit the plugins github repository
 `;
 
 export default {
-  input: "src/main.js",
+  input: "src/main.ts",
   output: {
     dir: "dist/",
     format: "esm",

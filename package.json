@@ -31,6 +31,9 @@
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
   },
+  "peerDependencies": {
+    "@alx-plugins/marginnote": "^1.4.0"
+  },
   "release-it": {
     "hooks": {
       "after:bump": "npm run build",

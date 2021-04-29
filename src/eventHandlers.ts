@@ -57,3 +57,37 @@ export function onPopupMenuOnSelection(sender: NotifySender) {
     showHUD(error.toString());
   }
 }
+
+export function bindEventHandlers(
+  events: {
+    event: Events;
+    handler: (sender: any) => void;
+  }[]
+): {
+  add: () => void;
+  remove: () => void;
+  handlers: { [k: string]: (sender: any) => void };
+} {
+  const handlers: { [k: string]: (sender: any) => void } = {};
+  events.forEach((v) => {
+    handlers["on" + v.event] = v.handler;
+  });
+
+  function add() {
+    events.forEach((v) => {
+      NSNotificationCenter.defaultCenter().addObserverSelectorName(
+        self,
+        `on${v.event}:`,
+        v.event
+      );
+    });
+  }
+
+  function remove() {
+    events.forEach((v) => {
+      NSNotificationCenter.defaultCenter().removeObserverName(self, v.event);
+    });
+  }
+
+  return { add, remove, handlers };
+}

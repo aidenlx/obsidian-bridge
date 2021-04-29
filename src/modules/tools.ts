@@ -41,41 +41,58 @@ function isMbBookNote(obj: any): obj is MbBookNote{
 
 export function scanObject(obj: any, depth = 1): any {
 
-  return obj.noteId;
-  // function scan(obj: any, dive?: boolean, accu: number = 0): any {
-  //   let out: any = {};
-  //   if (typeof obj !=="object")
-  //     for (const k of getAllProperties(obj)) {
-  //       let value;
-  //       if (accu < depth) {
-  //         if (
-  //           k === "parentNote" &&
-  //           (dive === undefined || !dive) &&
-  //           isMbBookNote(obj[k])
-  //         )
-  //           value = scan(obj[k], false, accu + 1);
-  //         else if (
-  //           k === "childNotes" &&
-  //           (dive === undefined || dive) &&
-  //           Array.isArray(obj[k])
-  //         ) {
-  //           value = (obj[k] as any[]).map((v) => scan(v, true, accu + 1));
-  //         } 
-  //         else if (k==="excerptPic") {
-  //           value = scan(obj[k], false, accu + 1);
-  //         } else value = obj[k];
-  //       } else value = obj[k];
-  //       Object.defineProperty(out, k, {
-  //         value,
-  //         writable: true,
-  //         enumerable: true,
-  //         configurable: true,
-  //       });
-  //     }
-  //   return out;
-  // }
+  function scan(obj: any, dive?: boolean, accu: number = 0): any {
+    if(typeof obj !== "undefined" && obj !== null){
+      let out: any = {};
+      for (const k of getAllProperties(obj)) {
+        let value;
+        if (accu < depth) {
+          if (
+            k === "parentNote" &&
+            (dive === undefined || !dive) &&
+            isMbBookNote(obj[k])
+          ){
+            try {
+              value = scan(obj[k], false, accu + 1);
+            } catch (error) {
+              value = `Error scaning: ${k} accu: ${accu}`;
+            }
+          }
+            
+          else if (
+            k === "childNotes" &&
+            (dive === undefined || dive) &&
+            Array.isArray(obj[k])
+          ) {
+            try {
+              value = (obj[k] as any[]).map((v) => scan(v, true, accu + 1));
+            } catch (error) {
+              value = `Error scaning: ${k} accu: ${accu}`;
+            }
+          } 
+          else if (k==="excerptPic") {
+            try {
+              value = scan(obj[k], false, accu + 1);
+            } catch (error) {
+              value = `Error scaning: ${k} accu: ${accu}`;
+            }
 
-  // return scan(obj);
+          } else value = obj[k];
+        } else value = obj[k];
+        Object.defineProperty(out, k, {
+          value,
+          writable: true,
+          enumerable: true,
+          configurable: true,
+        });
+      }
+    return out;
+    } else {
+      return undefined;
+    }
+  }
+
+  return scan(obj);
 }
 
 export { showHUD, alert, copy, debug };

@@ -2,7 +2,7 @@ import { PopupRecorder } from "modules/PopupRecorder";
 import { copy, showHUD } from "modules/tools";
 import { stringify } from "./modules/parser";
 
-export function onPopupMenuOnNote(sender: NotifySender) {
+export function onPopupMenuOnNote(sender: PopupMenuOnNote_Sender) {
   if (!Application.sharedInstance().checkNotifySenderInWindow(sender, self.window))
     return; //Don't process message from other window
 
@@ -34,7 +34,7 @@ export function onPopupMenuOnNote(sender: NotifySender) {
   }
 }
 
-export function onPopupMenuOnSelection(sender: NotifySender) {
+export function onPopupMenuOnSelection(sender: PopupMenuOnSelection_Sender) {
   if (!Application.sharedInstance().checkNotifySenderInWindow(sender, self.window))
     return; //Don't process message from other window
 
@@ -58,23 +58,31 @@ export function onPopupMenuOnSelection(sender: NotifySender) {
   }
 }
 
+type HanlderBasic<T extends NotifySender> = {
+  handler: EventHandler<T>;
+  event: T["name"]
+}
+
+type Hanlder =
+  | HanlderBasic<PopupMenuOnSelection_Sender>
+  | HanlderBasic<ProcessNewExcerpt_Sender>
+  | HanlderBasic<ChangeExcerptRange_Sender>
+  | HanlderBasic<PopupMenuOnNote_Sender>;
+
 export function bindEventHandlers(
-  events: {
-    event: Events;
-    handler: (sender: any) => void;
-  }[]
+  handlerList: Hanlder[]
 ): {
   add: () => void;
   remove: () => void;
   handlers: { [k: string]: (sender: any) => void };
 } {
   const handlers: { [k: string]: (sender: any) => void } = {};
-  events.forEach((v) => {
+  handlerList.forEach((v) => {
     handlers["on" + v.event] = v.handler;
   });
 
   function add() {
-    events.forEach((v) => {
+    handlerList.forEach((v) => {
       NSNotificationCenter.defaultCenter().addObserverSelectorName(
         self,
         `on${v.event}:`,
@@ -84,7 +92,7 @@ export function bindEventHandlers(
   }
 
   function remove() {
-    events.forEach((v) => {
+    handlerList.forEach((v) => {
       NSNotificationCenter.defaultCenter().removeObserverName(self, v.event);
     });
   }

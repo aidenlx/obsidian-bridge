@@ -1,9 +1,7 @@
 /// <reference types="@alx-plugins/marginnote" />
 
-import { showHUD } from "modules/tools";
+import { getObjCClassDeclar as getDeclar, showHUD } from "modules/tools";
 import { onPopupMenuOnNote, onPopupMenuOnSelection } from "./eventHandlers";
-
-const getObjCClassDeclar = (name: string) => `${name} : JSExtension`;
 
 const pluginName = "obsidian-bridge";
 
@@ -82,7 +80,7 @@ const inst: InstMembers = {
 const cls: ClsMembers = {};
 
 JSB.newAddon = function (mainPath) {
-  return JSB.defineClass(getObjCClassDeclar(pluginName), inst, cls);
+  return JSB.defineClass(getDeclar(pluginName,"JSExtension"), inst, cls);
 };
 
 

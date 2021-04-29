@@ -130,3 +130,8 @@ function debug(obj:any) {
     return null;
   }
 }
+
+/**
+ * Get Objective-C class declaration
+ */
+export const getObjCClassDeclar = (name: string, type: string) => `${name} : ${type}`;

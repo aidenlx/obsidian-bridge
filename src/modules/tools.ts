@@ -1,3 +1,4 @@
+import { MbBookNote } from "@alx-plugins/marginnote";
 
 export function getWordCount(src: string) {
   return (src.match(/\b/g) || "").length / 2 + (src.match(chs) || "").length;

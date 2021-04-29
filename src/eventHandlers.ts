@@ -16,9 +16,19 @@ export function onPopupMenuOnNote(sender: NotifySender) {
   if (self.recorder.isDuplicate(Date.now()))
     return;
 
-  const src = sender.userInfo.note;
+  const srcNote = sender.userInfo.note;
+  let currentBook;
+  
+  if (!srcNote) {
+    showHUD("no note in sender");
+    return;
+  }
+
+  if (srcNote.docMd5)   
+    currentBook= Database.sharedInstance().getDocumentById(srcNote.docMd5);
+
   try {
-    copy(stringify(src, self.recorder));
+    copy(stringify(srcNote,self.recorder,currentBook));
   } catch (error) {
     showHUD(error.toString());
   }
@@ -36,10 +46,12 @@ export function onPopupMenuOnSelection(sender: NotifySender) {
     self.recorder = new PopupRecorder();
   }
 
-  const selection = sender.userInfo.documentController.selectionText;
+  const { selectionText: selection, document: currentBook } = sender.userInfo
+    .documentController as DocumentController;
+  
   try {
     if (selection && selection.length) {
-      copy(stringify({ sel: selection }, self.recorder));
+      copy(stringify({ sel: selection }, self.recorder, currentBook));
     }
   } catch (error) {
     showHUD(error.toString());

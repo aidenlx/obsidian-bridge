@@ -3,7 +3,7 @@ import { node, ReturnBody } from "./return";
 import { scanObject } from "./tools";
 
 
-function process(node: node, rec: PopupRecorder): ReturnBody {
+function process(node: node, rec: PopupRecorder, currentBook?: MbBook): ReturnBody {
   let data = isSel(node) ? node : scanObject(node, 2);
   const last = rec.last;
   rec.push(data);
@@ -11,13 +11,14 @@ function process(node: node, rec: PopupRecorder): ReturnBody {
   return {
     type: isSel(node) ? "sel" : "note",
     sendTime,
+    currentBook: currentBook ? scanObject(currentBook) : undefined,
     data,
     last,
   };
 }
 
-export function stringify<T extends node>(node: T, rec: PopupRecorder): string {
-  return "<!--MN-->\n" + JSON.stringify(process(node, rec));
+export function stringify<T extends node>(node: T, rec: PopupRecorder, currentBook?: MbBook): string {
+  return "<!--MN-->\n" + JSON.stringify(process(node, rec, currentBook));
 }
 
 function isSel(node: node): node is selection {

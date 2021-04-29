@@ -5,8 +5,9 @@ export type node = selection | MbBookNote;
 type ReturnBody_Basic = {
   type: "sel" | "note";
   sendTime: ReturnType<typeof Date.now>;
-  last: item;
+  currentBook?: MbBook;
   data: node;
+  last: item;
 };
 
 export type ReturnBody = ReturnBody_Note | ReturnBody_Sel;

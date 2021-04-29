@@ -1,3 +1,4 @@
+import { MbBook } from "@alx-plugins/marginnote";
 import { selection, item } from "./PopupRecorder";
 
 export type node = selection | MbBookNote;

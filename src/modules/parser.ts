@@ -1,3 +1,4 @@
+import { MbBook } from "@alx-plugins/marginnote";
 import { PopupRecorder, selection } from "./PopupRecorder";
 import { node, ReturnBody } from "./return";
 import { scanObject } from "./tools";

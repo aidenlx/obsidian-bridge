@@ -1,5 +1,5 @@
-/// <reference types="@alx-plugins/marginnote" />
 
+import { InstMembers, NotifySender, ClsMembers } from "@alx-plugins/marginnote";
 import { getObjCClassDeclar as getDeclar, showHUD } from "modules/tools";
 import { bindEventHandlers, onPopupMenuOnNote, onPopupMenuOnSelection } from "./eventHandlers";
 

@@ -1,3 +1,5 @@
+## [0.1.1](https://github.com/alx-plugins/obsidian-bridge/compare/0.1.0...0.1.1) (2021-04-29)
+
 # [0.1.0](https://github.com/alx-plugins/obsidian-bridge/compare/0.0.2...0.1.0) (2021-04-29)
 
 

@@ -1,6 +1,6 @@
 import { MbBook } from "@alx-plugins/marginnote";
-import { PopupRecorder, selection } from "./PopupRecorder";
-import { node, ReturnBody } from "./return";
+import { item, PopupRecorder, selection } from "./PopupRecorder";
+import { MNMark, node, ReturnBody } from "./return";
 import { scanObject } from "./tools";
 
 
@@ -8,7 +8,7 @@ function process(node: node, rec: PopupRecorder, currentBook?: MbBook): ReturnBo
   let data = isSel(node) ? node : scanObject(node, 2);
   const last = rec.last;
   rec.push(data);
-  const sendTime = rec.last.addTime as number;
+  const sendTime = (rec.last as Exclude<item,null>).addTime;
   return {
     type: isSel(node) ? "sel" : "note",
     sendTime,
@@ -19,7 +19,7 @@ function process(node: node, rec: PopupRecorder, currentBook?: MbBook): ReturnBo
 }
 
 export function stringify<T extends node>(node: T, rec: PopupRecorder, currentBook?: MbBook): string {
-  return "<!--MN-->\n" + JSON.stringify(process(node, rec, currentBook));
+  return MNMark + JSON.stringify(process(node, rec, currentBook));
 }
 
 function isSel(node: node): node is selection {

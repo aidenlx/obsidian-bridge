@@ -1,3 +1,15 @@
+# [1.0.0](https://github.com/alx-plugins/obsidian-bridge/compare/v0.1.2...1.0.0) (2021-04-30)
+
+
+### Features
+
+* update api ([e33fdb0](https://github.com/alx-plugins/obsidian-bridge/commit/e33fdb0c4e433998bd0d72f548e76d7fa541f004))
+
+
+### BREAKING CHANGES
+
+* now ReturnBody.last no longer return empty object, returning null instead
+
 ## [0.1.1](https://github.com/alx-plugins/obsidian-bridge/compare/0.1.0...0.1.1) (2021-04-29)
 
 # [0.1.0](https://github.com/alx-plugins/obsidian-bridge/compare/0.0.2...0.1.0) (2021-04-29)

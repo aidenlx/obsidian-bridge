@@ -1,6 +1,6 @@
 import { MbBook } from "@alx-plugins/marginnote";
-import { item, PopupRecorder, selection } from "./PopupRecorder";
-import { MNMark, node, ReturnBody } from "./return";
+import PopupRecorder from "./PopupRecorder";
+import { item, MNMark, node, ReturnBody, selection } from "./return";
 import { scanObject } from "./tools";
 
 
@@ -17,6 +17,8 @@ function process(node: node, rec: PopupRecorder, currentBook?: MbBook): ReturnBo
     last,
   };
 }
+
+const MNMark: MNMark = "<!--MN-->\n";
 
 export function stringify<T extends node>(node: T, rec: PopupRecorder, currentBook?: MbBook): string {
   return MNMark + JSON.stringify(process(node, rec, currentBook));

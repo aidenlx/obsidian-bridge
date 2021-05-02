@@ -1,14 +1,6 @@
-import { MbBookNote } from "@alx-plugins/marginnote";
+import { inHistory, time, item } from "./return";
 
-export type selection = { sel: string }
-export type inHistory = selection | MbBookNote | null;
-export type time = number | null;
-export type item = {
-  data: Exclude<inHistory, null>;
-  addTime: Exclude<time, null>;
-} | null;
-
-export class PopupRecorder {
+export default class PopupRecorder {
   private history: Array<inHistory>;
   private addTime: Array<time>;
 

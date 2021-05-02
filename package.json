@@ -1,11 +1,11 @@
 {
   "name": "@alx-plugins/obsidian-bridge",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MarginNote 3 --> Obsidian",
-  "types": "src/modules/return.ts",
+  "types": "src/modules/return.d.ts",
   "main": "",
   "files": [
-    "src/modules/*.ts"
+    "src/modules/return.d.ts"
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",

@@ -1,9 +1,16 @@
 import { MbBook, MbBookNote } from "@alx-plugins/marginnote";
-import { selection, item } from "./PopupRecorder";
+
+export type selection = { sel: string }
+export type inHistory = selection | MbBookNote | null;
+export type time = number | null;
+export type item = {
+  data: Exclude<inHistory, null>;
+  addTime: Exclude<time, null>;
+} | null;
 
 export type node = selection | MbBookNote;
 
-export const MNMark = "<!--MN-->\n";
+export type MNMark = "<!--MN-->\n";
 
 type ReturnBody_Basic = {
   type: "sel" | "note";
@@ -24,5 +31,3 @@ export interface ReturnBody_Note extends ReturnBody_Basic {
   type: "note"
   data: MbBookNote;
 }
-
-export { selection, item } from "./PopupRecorder";

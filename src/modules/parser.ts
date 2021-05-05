@@ -33,7 +33,8 @@ function process(node: node, rec: PopupRecorder, book?: MbBook): ReturnBody {
         const mediaData = Database.sharedInstance()
           .getMediaByHash(id)
           ?.base64Encoding();
-        if (mediaData) mediaList.push({ id, data: mediaData });
+        if (mediaData && !mediaData.startsWith("W3sicGFn"))
+          mediaList.push({ id, data: mediaData });
       }
     }
     return { type: "note", sendTime, currentBook, mediaList, data, last };

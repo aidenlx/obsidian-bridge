@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.0...1.1.1) (2021-05-05)
+
+
+### Bug Fixes
+
+* **main.ts:** change names of togglePlugin and self.plugin_on to avoid conflict ([83a2a40](https://github.com/alx-plugins/obsidian-bridge/commit/83a2a40897a2459f65f714d1324ab22c0f292e5c))
+
 # [1.1.0](https://github.com/alx-plugins/obsidian-bridge/compare/1.0.0...1.1.0) (2021-05-05)
 
 

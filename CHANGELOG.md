@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.1...1.1.2) (2021-05-05)
+
+
+### Bug Fixes
+
+* add logic to ignore internal media data ([4f25e83](https://github.com/alx-plugins/obsidian-bridge/commit/4f25e83d6422efd60c3395c4777b41d597e62a7a))
+
 ## [1.1.1](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.0...1.1.1) (2021-05-05)
 
 

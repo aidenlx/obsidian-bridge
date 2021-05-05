@@ -4,18 +4,40 @@ import { item, MNMark, node, ReturnBody, selection } from "./return";
 import { scanObject } from "./tools";
 
 
-function process(node: node, rec: PopupRecorder, currentBook?: MbBook): ReturnBody {
-  let data = isSel(node) ? node : scanObject(node, 2);
-  const last = rec.last;
-  rec.push(data);
-  const sendTime = (rec.last as Exclude<item,null>).addTime;
-  return {
-    type: isSel(node) ? "sel" : "note",
-    sendTime,
-    currentBook: currentBook ? scanObject(currentBook) : undefined,
-    data,
-    last,
+function process(node: node, rec: PopupRecorder, book?: MbBook): ReturnBody {
+
+  const currentBook = book ? scanObject(book) : undefined;
+
+  const getLastAndSendTime = (
+    data: node
+  ): { sendTime: ReturnBody["sendTime"]; last: ReturnBody["last"] } => {
+    const last = rec.last;
+    rec.push(data);
+    const sendTime = (rec.last as Exclude<item, null>).addTime;
+    return { last, sendTime };
   };
+
+  if (isSel(node)){
+    const data = node;
+    const { last, sendTime } = getLastAndSendTime(data);
+    const mediaList = null;
+    return { type: "sel", sendTime, currentBook, mediaList, data, last };
+  } else {
+    const data = scanObject(node, 2);
+    const { last, sendTime } = getLastAndSendTime(data);
+    const mediaList = [];
+    const mediaIds = node.mediaList?.split('-');
+    if (mediaIds && mediaIds.length > 1) {
+      for (const id of mediaIds) {
+        if (!id) continue; // escape empty string
+        const mediaData = Database.sharedInstance()
+          .getMediaByHash(id)
+          ?.base64Encoding();
+        if (mediaData) mediaList.push({ id, data: mediaData });
+      }
+    }
+    return { type: "note", sendTime, currentBook, mediaList, data, last };
+  }
 }
 
 const MNMark: MNMark = "<!--MN-->\n";

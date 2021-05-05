@@ -14,7 +14,7 @@ export default {
   input: "src/main.ts",
   output: {
     dir: "dist/",
-    format: "esm",
+    format: "iife",
     exports: "none",
     sourcemap: "hidden",
     banner,

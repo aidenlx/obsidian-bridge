@@ -1,9 +1,8 @@
 
-import { InstMembers, NotifySender, ClsMembers } from "@alx-plugins/marginnote";
-import { getObjCClassDeclar as getDeclar, showHUD } from "modules/tools";
+import { InstMembers, ClsMembers } from "@alx-plugins/marginnote";
+import { getObjCClassDeclar as getDeclar } from "modules/tools";
+import { addonOnName, pluginName, toggleHandlerName, togglePlugin } from "togglePlugin";
 import { bindEventHandlers, onPopupMenuOnNote, onPopupMenuOnSelection } from "./eventHandlers";
-
-const pluginName = "obsidian-bridge";
 
 const bindEvt = bindEventHandlers([
   { event: "PopupMenuOnSelection", handler: onPopupMenuOnSelection },
@@ -14,7 +13,7 @@ const inst: InstMembers = {
   ...bindEvt.handlers,
   notebookWillOpen(notebookid) {
     bindEvt.add();
-    self.plugin_on = NSUserDefaults.standardUserDefaults().objectForKey(
+    self[addonOnName] = NSUserDefaults.standardUserDefaults().objectForKey(
       `marginnote_${pluginName}`
     );
   },
@@ -26,35 +25,12 @@ const inst: InstMembers = {
       return {
         image: "title.png",
         object: self,
-        selector: "togglePlugin:",
-        // @ts-ignore
-        checked: self.plugin_on ? true : false,
+        selector: toggleHandlerName + ":",
+        checked: self[addonOnName] ? true : false,
       };
     return null;
   },
-  togglePlugin: function (sender: NotifySender) {
-    var lan = NSLocale.preferredLanguages().length
-      ? NSLocale.preferredLanguages()[0].substring(0, 2)
-      : "en";
-    let cnTips, enTips;
-    if (self.plugin_on) {
-      self.plugin_on = false;
-      cnTips = `${pluginName}已关闭`;
-      enTips = `${pluginName}disabled`;
-    } else {
-      self.plugin_on = true;
-      cnTips = "启动";
-      enTips = "enabled";
-    }
-    showHUD(lan === "zh" ? cnTips : enTips);
-    NSUserDefaults.standardUserDefaults().setObjectForKey(
-      self.plugin_on,
-      `marginnote_${pluginName}`
-    );
-    Application.sharedInstance()
-      .studyController(self.window)
-      .refreshAddonCommands();
-  }
+  [toggleHandlerName] : togglePlugin
 };
 
 const cls: ClsMembers = {};

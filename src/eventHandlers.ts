@@ -7,6 +7,7 @@ import {
   ProcessNewExcerpt_Sender,
   ChangeExcerptRange_Sender,
 } from "@alx-plugins/marginnote";
+import { addonOnName } from "togglePlugin";
 import PopupRecorder from "modules/PopupRecorder";
 import { copy, showHUD } from "modules/tools";
 import { stringify } from "./modules/parser";
@@ -17,7 +18,7 @@ export function onPopupMenuOnNote(sender: PopupMenuOnNote_Sender) {
   )
     return; //Don't process message from other window
 
-  if (!self.plugin_on) return;
+  if (!self[addonOnName]) return;
 
   if (self.recorder === undefined) {
     self.recorder = new PopupRecorder();
@@ -49,7 +50,7 @@ export function onPopupMenuOnSelection(sender: PopupMenuOnSelection_Sender) {
   )
     return; //Don't process message from other window
 
-  if (!self.plugin_on) return;
+  if (!self[addonOnName]) return;
 
   if (self.recorder === undefined) {
     self.recorder = new PopupRecorder();

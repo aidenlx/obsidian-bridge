@@ -17,7 +17,7 @@
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
-    "@alx-plugins/marginnote": "^1.7.4",
+    "@alx-plugins/marginnote": "^1.8.3",
     "@release-it/bumper": "^3.0.1",
     "@release-it/conventional-changelog": "^3.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",

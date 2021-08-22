@@ -8,10 +8,10 @@ import {
   ProcessNewExcerpt_Sender,
 } from "@alx-plugins/marginnote";
 import PopupRecorder from "modules/PopupRecorder";
-import { copy, showHUD } from "modules/tools";
+import { showHUD } from "modules/tools";
 import { addonOnName } from "togglePlugin";
 
-import { stringify } from "./modules/parser";
+import { handleNote, handleSel, handleToc } from "./modules/parser";
 
 export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
   if (
@@ -25,21 +25,17 @@ export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
     self.recorder = new PopupRecorder();
   }
 
-  if (self.recorder.isDuplicate(Date.now())) return;
-
-  const srcNote = sender.userInfo.note;
-  let currentBook;
-
-  if (!srcNote) {
-    showHUD("no note in sender");
+  if (!sender.userInfo.note) {
+    showHUD("Error: No note in sender");
     return;
   }
 
-  if (srcNote.docMd5)
-    currentBook = Database.sharedInstance().getDocumentById(srcNote.docMd5);
-
   try {
-    copy(stringify(srcNote, self.recorder, currentBook));
+    if (self.recorder.isDuplicate(Date.now())) return;
+
+    const note = sender.userInfo.note;
+
+    self.tocMode ? handleToc(note) : handleNote(note);
   } catch (error) {
     showHUD(error.toString());
   }
@@ -51,18 +47,17 @@ export const onPopupMenuOnSelection = (sender: PopupMenuOnSelection_Sender) => {
   )
     return; //Don't process message from other window
 
-  if (!self[addonOnName]) return;
+  if (!self[addonOnName] || self.tocMode) return;
 
   if (self.recorder === undefined) {
     self.recorder = new PopupRecorder();
   }
 
-  const { selectionText: selection, document: currentBook } = sender.userInfo
-    .documentController as DocumentController;
-
   try {
-    if (selection && selection.length) {
-      copy(stringify({ sel: selection }, self.recorder, currentBook));
+    const { selectionText: sel, document: book } =
+      sender.userInfo.documentController;
+    if (sel && sel.length) {
+      handleSel({ sel, book });
     }
   } catch (error) {
     showHUD(error.toString());

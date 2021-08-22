@@ -1,5 +1,5 @@
 import { ClsMembers, InstMembers } from "@alx-plugins/marginnote";
-import { getObjCClassDeclar as getDeclar } from "modules/tools";
+import { getObjCClassDeclar as getDeclar, showHUD } from "modules/tools";
 import {
   addonOnName,
   pluginName,
@@ -11,7 +11,9 @@ import {
   bindEventHandlers,
   onPopupMenuOnNote,
   onPopupMenuOnSelection,
-} from "./eventHandlers";
+} from "./event-handlers";
+import PopupRecorder from "./modules/PopupRecorder";
+import getText from "./modules/translate";
 
 const bindEvt = bindEventHandlers([
   { event: "PopupMenuOnSelection", handler: onPopupMenuOnSelection },
@@ -20,11 +22,16 @@ const bindEvt = bindEventHandlers([
 
 const inst: InstMembers = {
   ...bindEvt.handlers,
+  sceneWillConnect: () => {
+    self.tocMode = false;
+    self.recorder = new PopupRecorder();
+  },
   notebookWillOpen: (notebookid) => {
     bindEvt.add();
     self[addonOnName] = NSUserDefaults.standardUserDefaults().objectForKey(
       `marginnote_${pluginName}`,
     );
+    if (self[addonOnName] && self.tocMode) showHUD(getText("warn_toc_enabled"));
   },
   notebookWillClose: (notebookid) => {
     bindEvt.remove();

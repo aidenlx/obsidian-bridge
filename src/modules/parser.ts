@@ -1,56 +1,110 @@
-import { excerptPic_video, MbBook } from "@alx-plugins/marginnote";
+import { excerptPic_video, MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
 import PopupRecorder from "./PopupRecorder";
-import { item, MNMark, node, ReturnBody, selection } from "./return";
-import { scanObject } from "./tools";
+import {
+  Data,
+  MNMark,
+  ReturnBody,
+  ReturnBody_Note,
+  ReturnBody_Sel,
+  ReturnBody_Toc,
+  Selection,
+} from "./return";
+import { scanNote, scanObject, scanToc } from "./scan";
+import { copy, showHUD } from "./tools";
+import getText from "./translate";
 
-const process = (node: node, rec: PopupRecorder, book?: MbBook): ReturnBody => {
-  const currentBook = book ? scanObject(book) : undefined;
+const getBook = (docMd5: string | undefined): MbBook | null => {
+  const bookObj =
+    docMd5 && typeof docMd5 === "string"
+      ? Database.sharedInstance().getDocumentById(docMd5)
+      : null;
+  return bookObj ? scanObject(bookObj) : null;
+};
 
-  const getLastAndSendTime = (
-    data: node,
-  ): { sendTime: ReturnBody["sendTime"]; last: ReturnBody["last"] } => {
-    const last = rec.last;
-    rec.push(data);
-    const sendTime = (rec.last as Exclude<item, null>).addTime;
-    return { last, sendTime };
+const stringify = (obj: any): string => {
+  return MNMark + JSON.stringify(obj);
+};
+
+const getLastAndSendTime = (
+  data: Data,
+): { sendTime: ReturnBody["sendTime"]; last: ReturnBody["last"] } => {
+  const rec = self.recorder as PopupRecorder,
+    last = rec.last;
+  return { last, sendTime: rec.push(data) };
+};
+
+export const handleSel = (sel: Selection): void => {
+  const { last, sendTime } = getLastAndSendTime(sel);
+  const returns: ReturnBody_Sel = {
+    type: "sel",
+    sendTime,
+    data: sel,
+    last,
   };
+  copy(stringify(returns));
+};
 
-  if (isSel(node)) {
-    const data = node;
-    const { last, sendTime } = getLastAndSendTime(data);
-    const mediaList = null;
-    return { type: "sel", sendTime, currentBook, mediaList, data, last };
-  } else {
-    const data = scanObject(node, 2);
-    const { last, sendTime } = getLastAndSendTime(data);
-    const videoId = (data.excerptPic as excerptPic_video)?.video;
-    const mediaList = [];
-    const mediaIds = node.mediaList?.split("-").filter((id) => id !== videoId);
-    if (mediaIds && mediaIds.length > 1) {
-      for (const id of mediaIds) {
-        if (!id) continue; // escape empty string
-        const mediaData = Database.sharedInstance()
-          .getMediaByHash(id)
-          ?.base64Encoding();
-        // only export png, cannot find way to process stroke properly for now
-        if (mediaData && mediaData.startsWith("iVBORw0K"))
-          mediaList.push({ id, data: mediaData });
-      }
-    }
-    return { type: "note", sendTime, currentBook, mediaList, data, last };
-  }
+const arrToObj = <V>(
+  arr: string[],
+  cvt: (id: string) => V | null,
+): Record<string, V> =>
+  arr.reduce((obj, id) => {
+    const val = cvt(id);
+    if (val) obj[id] = val;
+    return obj;
+  }, {} as any) as Record<string, V>;
+
+export const handleNote = (note: MbBookNote): void => {
+  const [data, bookMd5s] = scanNote(note, 2),
+    { last, sendTime } = getLastAndSendTime(data),
+    bookMap = arrToObj(bookMd5s, (id) => getBook(id));
+
+  const videoId = (data.excerptPic as excerptPic_video)?.video,
+    mediaIds = note.mediaList?.split("-").filter((id) => id !== videoId),
+    mediaMap =
+      mediaIds && mediaIds.length > 0
+        ? arrToObj(mediaIds, (id) => {
+            const mediaData = Database.sharedInstance()
+              .getMediaByHash(id)
+              ?.base64Encoding();
+            return mediaData && mediaData.startsWith("iVBORw0K")
+              ? mediaData
+              : null;
+          })
+        : {};
+
+  const returns: ReturnBody_Note = {
+    type: "note",
+    sendTime,
+    bookMap,
+    mediaMap,
+    data,
+    last,
+  };
+  copy(stringify(returns));
+};
+
+export const handleToc = (note: MbBookNote): void => {
+  // if (note.parentNote) return;
+  const result = scanToc(note);
+  if (typeof result !== "string") {
+    const [data, bookMd5s] = result,
+      { last, sendTime } = getLastAndSendTime(data),
+      bookMap = arrToObj(bookMd5s, (id) => getBook(id));
+    const returns: ReturnBody_Toc = {
+      type: "toc",
+      sendTime,
+      bookMap,
+      data,
+      last,
+    };
+    copy(stringify(returns));
+    showHUD(getText("hint_toc_success") + note.noteTitle);
+  } else showHUD(result);
 };
 
 const MNMark: MNMark = "<!--MN-->\n";
 
-export const stringify = <T extends node>(
-  node: T,
-  rec: PopupRecorder,
-  currentBook?: MbBook,
-): string => {
-  return MNMark + JSON.stringify(process(node, rec, currentBook));
-};
-
-const isSel = (node: node): node is selection =>
-  typeof (node as selection).sel === "string";
+const isSel = (node: Data): node is Selection =>
+  typeof (node as Selection).sel === "string";

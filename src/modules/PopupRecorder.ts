@@ -9,11 +9,16 @@ export default class PopupRecorder {
     this.addTime = new Array(null, null);
   }
 
-  push(obj: Exclude<inHistory, null>) {
+  /**
+   * @returns add time
+   */
+  push(obj: Exclude<inHistory, null>): number {
     this.history.shift(); //去除过期id（第一个）
     this.history.push(obj);
     this.addTime.shift(); //去除过期id（第一个）
-    this.addTime.push(Date.now());
+    const addTime = Date.now();
+    this.addTime.push(addTime);
+    return addTime;
   }
 
   public get last(): item {

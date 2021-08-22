@@ -1,29 +1,22 @@
 import { MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
-export type selection = { sel: string };
-export type inHistory = selection | MbBookNote | null;
+export type Selection = { sel: string; book?: MbBook };
+export type inHistory = Data | null;
 export type time = number | null;
 export type item = {
   data: Exclude<inHistory, null>;
   addTime: Exclude<time, null>;
 } | null;
 
-export type node = selection | MbBookNote;
+export type Data = Selection | MbBookNote | Toc;
+export type DataType = "sel" | "note" | "toc";
 
 export type MNMark = "<!--MN-->\n";
 
-type Media = {
-  id: string;
-  /** encoded in base64 */
-  data: string;
-};
-
 type ReturnBody_Basic = {
-  type: "sel" | "note";
+  type: DataType;
   sendTime: ReturnType<typeof Date.now>;
-  currentBook?: MbBook;
-  mediaList: Media[] | null;
-  data: node;
+  data: Data;
   last: item | null;
 };
 
@@ -31,12 +24,29 @@ export type ReturnBody = ReturnBody_Note | ReturnBody_Sel;
 
 export interface ReturnBody_Sel extends ReturnBody_Basic {
   type: "sel";
-  data: selection;
-  mediaList: null;
+  data: Selection;
+  book?: MbBook;
 }
 
 export interface ReturnBody_Note extends ReturnBody_Basic {
   type: "note";
   data: MbBookNote;
-  mediaList: Array<{ id: string; data: string }>;
+  /** id - base64(png) pair */
+  mediaMap: Record<string, string>;
+  bookMap: Record<string, MbBook>;
+}
+
+export interface ReturnBody_Toc extends ReturnBody_Basic {
+  type: "toc";
+  data: Toc;
+  bookMap: Record<string, MbBook>;
+}
+export interface Toc {
+  noteTitle: string;
+  noteId: string;
+  docMd5?: string;
+  startPage?: number;
+  endPage?: number;
+
+  childNotes: Toc[];
 }

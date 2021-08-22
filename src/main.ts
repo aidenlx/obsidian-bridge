@@ -1,8 +1,17 @@
-
-import { InstMembers, ClsMembers } from "@alx-plugins/marginnote";
+import { ClsMembers, InstMembers } from "@alx-plugins/marginnote";
 import { getObjCClassDeclar as getDeclar } from "modules/tools";
-import { addonOnName, pluginName, toggleHandlerName, togglePlugin } from "togglePlugin";
-import { bindEventHandlers, onPopupMenuOnNote, onPopupMenuOnSelection } from "./eventHandlers";
+import {
+  addonOnName,
+  pluginName,
+  toggleHandlerName,
+  togglePlugin,
+} from "togglePlugin";
+
+import {
+  bindEventHandlers,
+  onPopupMenuOnNote,
+  onPopupMenuOnSelection,
+} from "./eventHandlers";
 
 const bindEvt = bindEventHandlers([
   { event: "PopupMenuOnSelection", handler: onPopupMenuOnSelection },
@@ -11,16 +20,16 @@ const bindEvt = bindEventHandlers([
 
 const inst: InstMembers = {
   ...bindEvt.handlers,
-  notebookWillOpen(notebookid) {
+  notebookWillOpen: (notebookid) => {
     bindEvt.add();
     self[addonOnName] = NSUserDefaults.standardUserDefaults().objectForKey(
-      `marginnote_${pluginName}`
+      `marginnote_${pluginName}`,
     );
   },
-  notebookWillClose(notebookid) {
+  notebookWillClose: (notebookid) => {
     bindEvt.remove();
   },
-  queryAddonCommandStatus() {
+  queryAddonCommandStatus: () => {
     if (Application.sharedInstance().studyController(self.window).studyMode < 3)
       return {
         image: "title.png",
@@ -30,13 +39,10 @@ const inst: InstMembers = {
       };
     return null;
   },
-  [toggleHandlerName] : togglePlugin
+  [toggleHandlerName]: togglePlugin,
 };
 
 const cls: ClsMembers = {};
 
-JSB.newAddon = function (mainPath) {
-  return JSB.defineClass(getDeclar(pluginName,"JSExtension"), inst, cls);
-};
-
-
+JSB.newAddon = (mainPath) =>
+  JSB.defineClass(getDeclar(pluginName, "JSExtension"), inst, cls);

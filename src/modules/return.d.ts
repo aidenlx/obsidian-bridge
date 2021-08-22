@@ -1,6 +1,6 @@
 import { MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
-export type selection = { sel: string }
+export type selection = { sel: string };
 export type inHistory = selection | MbBookNote | null;
 export type time = number | null;
 export type item = {
@@ -36,7 +36,7 @@ export interface ReturnBody_Sel extends ReturnBody_Basic {
 }
 
 export interface ReturnBody_Note extends ReturnBody_Basic {
-  type: "note"
+  type: "note";
   data: MbBookNote;
   mediaList: Array<{ id: string; data: string }>;
 }

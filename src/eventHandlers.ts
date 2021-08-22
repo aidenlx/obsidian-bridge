@@ -1,18 +1,19 @@
 import {
+  ChangeExcerptRange_Sender,
+  DocumentController,
+  EventHandler,
+  NotifySender,
   PopupMenuOnNote_Sender,
   PopupMenuOnSelection_Sender,
-  DocumentController,
-  NotifySender,
-  EventHandler,
   ProcessNewExcerpt_Sender,
-  ChangeExcerptRange_Sender,
 } from "@alx-plugins/marginnote";
-import { addonOnName } from "togglePlugin";
 import PopupRecorder from "modules/PopupRecorder";
 import { copy, showHUD } from "modules/tools";
+import { addonOnName } from "togglePlugin";
+
 import { stringify } from "./modules/parser";
 
-export function onPopupMenuOnNote(sender: PopupMenuOnNote_Sender) {
+export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
   if (
     !Application.sharedInstance().checkNotifySenderInWindow(sender, self.window)
   )
@@ -42,9 +43,9 @@ export function onPopupMenuOnNote(sender: PopupMenuOnNote_Sender) {
   } catch (error) {
     showHUD(error.toString());
   }
-}
+};
 
-export function onPopupMenuOnSelection(sender: PopupMenuOnSelection_Sender) {
+export const onPopupMenuOnSelection = (sender: PopupMenuOnSelection_Sender) => {
   if (
     !Application.sharedInstance().checkNotifySenderInWindow(sender, self.window)
   )
@@ -66,7 +67,7 @@ export function onPopupMenuOnSelection(sender: PopupMenuOnSelection_Sender) {
   } catch (error) {
     showHUD(error.toString());
   }
-}
+};
 
 type HanlderBasic<T extends NotifySender> = {
   handler: EventHandler<T>;
@@ -79,33 +80,33 @@ type Hanlder =
   | HanlderBasic<ChangeExcerptRange_Sender>
   | HanlderBasic<PopupMenuOnNote_Sender>;
 
-export function bindEventHandlers(
-  handlerList: Hanlder[]
+export const bindEventHandlers = (
+  handlerList: Hanlder[],
 ): {
   add: () => void;
   remove: () => void;
   handlers: { [k: string]: (sender: any) => void };
-} {
+} => {
   const handlers: { [k: string]: (sender: any) => void } = {};
   handlerList.forEach((v) => {
     handlers["on" + v.event] = v.handler;
   });
 
-  function add() {
+  const add = () => {
     handlerList.forEach((v) => {
       NSNotificationCenter.defaultCenter().addObserverSelectorName(
         self,
         `on${v.event}:`,
-        v.event
+        v.event,
       );
     });
-  }
+  };
 
-  function remove() {
+  const remove = () => {
     handlerList.forEach((v) => {
       NSNotificationCenter.defaultCenter().removeObserverName(self, v.event);
     });
-  }
+  };
 
   return { add, remove, handlers };
-}
+};

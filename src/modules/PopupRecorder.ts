@@ -1,12 +1,12 @@
-import { inHistory, time, item } from "./return";
+import { inHistory, item, time } from "./return";
 
 export default class PopupRecorder {
   private history: Array<inHistory>;
   private addTime: Array<time>;
 
   constructor() {
-    this.history = new Array(null,null);
-    this.addTime = new Array(null,null);
+    this.history = new Array(null, null);
+    this.addTime = new Array(null, null);
   }
 
   push(obj: Exclude<inHistory, null>) {

@@ -3,11 +3,11 @@ import { showHUD } from "modules/tools";
 
 export const pluginName = "obsidian-bridge";
 
-export const toggleHandlerName = `toggle${pluginName}`
+export const toggleHandlerName = `toggle${pluginName}`;
 
-export const addonOnName = `${pluginName}_on`
+export const addonOnName = `${pluginName}_on`;
 
-export function togglePlugin(sender: NotifySender) {
+export const togglePlugin = (sender: NotifySender) => {
   let lan = NSLocale.preferredLanguages().length
     ? NSLocale.preferredLanguages()[0].substring(0, 2)
     : "en";
@@ -24,9 +24,9 @@ export function togglePlugin(sender: NotifySender) {
   showHUD(lan === "zh" ? cnTips : enTips);
   NSUserDefaults.standardUserDefaults().setObjectForKey(
     self[addonOnName],
-    `marginnote_${pluginName}`
+    `marginnote_${pluginName}`,
   );
   Application.sharedInstance()
     .studyController(self.window)
     .refreshAddonCommands();
-}
+};

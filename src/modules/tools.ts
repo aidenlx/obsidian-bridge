@@ -40,7 +40,7 @@ const isMbBookNote = (obj: any): obj is MbBookNote => {
   );
 };
 
-export const scanObject = (obj: any, depth = 1): any => {
+export const scanObject = <T>(obj: T, depth = 1): T => {
   const scan = (obj: any, dive?: boolean, accu: number = 0): any => {
     if (typeof obj !== "undefined" && obj !== null) {
       let out: any = {};

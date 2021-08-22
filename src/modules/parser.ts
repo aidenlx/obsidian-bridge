@@ -1,4 +1,4 @@
-import { MbBook } from "@alx-plugins/marginnote";
+import { excerptPic_video, MbBook } from "@alx-plugins/marginnote";
 
 import PopupRecorder from "./PopupRecorder";
 import { item, MNMark, node, ReturnBody, selection } from "./return";
@@ -24,15 +24,17 @@ const process = (node: node, rec: PopupRecorder, book?: MbBook): ReturnBody => {
   } else {
     const data = scanObject(node, 2);
     const { last, sendTime } = getLastAndSendTime(data);
+    const videoId = (data.excerptPic as excerptPic_video)?.video;
     const mediaList = [];
-    const mediaIds = node.mediaList?.split("-");
+    const mediaIds = node.mediaList?.split("-").filter((id) => id !== videoId);
     if (mediaIds && mediaIds.length > 1) {
       for (const id of mediaIds) {
         if (!id) continue; // escape empty string
         const mediaData = Database.sharedInstance()
           .getMediaByHash(id)
           ?.base64Encoding();
-        if (mediaData && !mediaData.startsWith("W3sicGFn"))
+        // only export png, cannot find way to process stroke properly for now
+        if (mediaData && mediaData.startsWith("iVBORw0K"))
           mediaList.push({ id, data: mediaData });
       }
     }

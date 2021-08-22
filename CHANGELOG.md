@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.0.0...2.1.0) (2021-08-22)
+
+
+### Features
+
+* **api:** add addon version ([bcb32e5](https://github.com/alx-plugins/obsidian-bridge/commit/bcb32e569ccd51d09d8230acb9361eae37db65cd))
+
 # [2.0.0](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.2...2.0.0) (2021-08-22)
 
 

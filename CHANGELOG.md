@@ -1,3 +1,21 @@
+# [2.0.0](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.2...2.0.0) (2021-08-22)
+
+
+### Bug Fixes
+
+* **parser:** mediaList now only includes png resouces ([c7e242d](https://github.com/alx-plugins/obsidian-bridge/commit/c7e242df2616dc8df4f47a657473d2a9f7a4de12))
+
+
+### Features
+
+* add fetch toc mode ([c9bf479](https://github.com/alx-plugins/obsidian-bridge/commit/c9bf47983c0483742979fb62ad59b14e7283d0d1))
+
+
+### BREAKING CHANGES
+
+* api: add ReturnBody_Toc; mediaList -> mediaMap; add bookMap for ReturnBody_Note and
+ReturnBody_Toc ...
+
 ## [1.1.2](https://github.com/alx-plugins/obsidian-bridge/compare/1.1.1...1.1.2) (2021-05-05)
 
 

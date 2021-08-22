@@ -1,9 +1,9 @@
 import { excerptPic_video, MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
+import { PREFIX, VERSION } from "./const";
 import PopupRecorder from "./PopupRecorder";
 import {
   Data,
-  MNMark,
   ReturnBody,
   ReturnBody_Note,
   ReturnBody_Sel,
@@ -23,7 +23,7 @@ const getBook = (docMd5: string | undefined): MbBook | null => {
 };
 
 const stringify = (obj: any): string => {
-  return MNMark + JSON.stringify(obj);
+  return PREFIX + JSON.stringify(obj);
 };
 
 const getLastAndSendTime = (
@@ -37,6 +37,7 @@ const getLastAndSendTime = (
 export const handleSel = (sel: Selection): void => {
   const { last, sendTime } = getLastAndSendTime(sel);
   const returns: ReturnBody_Sel = {
+    version: VERSION,
     type: "sel",
     sendTime,
     data: sel,
@@ -75,6 +76,7 @@ export const handleNote = (note: MbBookNote): void => {
         : {};
 
   const returns: ReturnBody_Note = {
+    version: VERSION,
     type: "note",
     sendTime,
     bookMap,
@@ -93,6 +95,7 @@ export const handleToc = (note: MbBookNote): void => {
       { last, sendTime } = getLastAndSendTime(data),
       bookMap = arrToObj(bookMd5s, (id) => getBook(id));
     const returns: ReturnBody_Toc = {
+      version: VERSION,
       type: "toc",
       sendTime,
       bookMap,
@@ -103,8 +106,6 @@ export const handleToc = (note: MbBookNote): void => {
     showHUD(getText("hint_toc_success") + note.noteTitle);
   } else showHUD(result);
 };
-
-const MNMark: MNMark = "<!--MN-->\n";
 
 const isSel = (node: Data): node is Selection =>
   typeof (node as Selection).sel === "string";

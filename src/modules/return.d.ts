@@ -14,6 +14,7 @@ export type DataType = "sel" | "note" | "toc";
 export type MNMark = "<!--MN-->\n";
 
 type ReturnBody_Basic = {
+  version: string;
   type: DataType;
   sendTime: ReturnType<typeof Date.now>;
   data: Data;

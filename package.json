@@ -9,30 +9,43 @@
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",
+    "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
     "release": "release-it"
   },
   "keywords": [],
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
-    "@alx-plugins/marginnote": "^1.4.0",
-    "@release-it/bumper": "^2.0.0",
-    "@release-it/conventional-changelog": "^2.0.1",
-    "@rollup/plugin-commonjs": "^18.0.0",
-    "@rollup/plugin-node-resolve": "^11.2.1",
-    "@rollup/plugin-typescript": "^8.2.0",
+    "@alx-plugins/marginnote": "^1.7.3",
+    "@release-it/bumper": "^3.0.1",
+    "@release-it/conventional-changelog": "^3.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
     "cz-conventional-changelog": "^3.3.0",
-    "release-it": "^14.6.1",
-    "rollup": "^2.42.4",
-    "rollup-plugin-copy2": "^0.2.0",
-    "rollup-plugin-zip": "^1.0.1",
-    "ts-jest": "^26.5.4",
-    "ts-node": "^9.1.1",
-    "tslib": "^2.1.0",
-    "typescript": "^4.2.3"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsdoc": "^36.0.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.3.2",
+    "release-it": "^14.11.5",
+    "rollup": "^2.56.2",
+    "rollup-plugin-copy2": "^0.3.1",
+    "rollup-plugin-zip": "^1.0.2",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.3.5"
   },
   "peerDependencies": {
-    "@alx-plugins/marginnote": "^1.4.0"
+    "@alx-plugins/marginnote": "^1.7.3"
   },
   "release-it": {
     "hooks": {

@@ -1,3 +1,19 @@
+# [2.2.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.1.0...2.2.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* **package.json:** fix peerDependencies ([e3e7582](https://github.com/alx-plugins/obsidian-bridge/commit/e3e758274cf47ff7a63c62bbcded1de8338f5084))
+* **scan:** fix scanToc and scanNote unable to scan props ([249ce49](https://github.com/alx-plugins/obsidian-bridge/commit/249ce49e0e2d74aa41ee40f88e3b0890c7decb8e))
+
+
+### Features
+
+* add tool lib for api ([3306325](https://github.com/alx-plugins/obsidian-bridge/commit/330632583aa7340722de9aa92fb21a5b5ad04d72))
+* **api:** api export Date.getTime() for Date ([13e4129](https://github.com/alx-plugins/obsidian-bridge/commit/13e4129dcaba0d34bfe14d7222e9cf9fe7e6892f))
+* send to obsidian via url in favor of clipboard ([25ccae1](https://github.com/alx-plugins/obsidian-bridge/commit/25ccae15c69ff46cb22256ab147384984b218fe6))
+* **sender:** use clipboard on mac while use url in ios devices ([faf52b7](https://github.com/alx-plugins/obsidian-bridge/commit/faf52b7dac610e6f4a688c345318c2434876b5af))
+
 # [2.1.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.0.0...2.1.0) (2021-08-22)
 
 

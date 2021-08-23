@@ -11,7 +11,7 @@
     "dev": "rollup --config rollup.config.js",
     "build": "rollup --config rollup.config.js --environment BUILD:production",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
-    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "eslint": "eslint src/**/* --ext .ts,.tsx --fix",
     "release": "release-it"
   },
   "keywords": [],
@@ -65,7 +65,7 @@
         "npm run eslint"
       ],
       "after:bump": [
-        "sed -i '' -E -e 's/const version = \"[0-9.]+\"/const version = \"${version}\"/' src/modules/const.ts",
+        "sed -i '' -E -e 's/const version = \"[0-9.]+\"/const version = \"${version}\"/' src/const.ts",
         "git add .",
         "npm run build"
       ],

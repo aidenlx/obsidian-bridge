@@ -9,13 +9,6 @@ export const toggleHandlerName = `toggle${pluginName}`;
 export const addonOnName = `${pluginName}_on`;
 
 export const togglePlugin = (sender: NotifySender) => {
-  // let app = Application.sharedInstance();
-  // app.studyController(self.window).refreshAddonCommands();
-  // if (
-  //   app.queryCommandWithKeyFlagsInWindow("p", 0x100000, self.window).disabled
-  // ) {
-  //   return;
-  // }
   const toggleAddon = () => {
     self[addonOnName] = !self[addonOnName];
     NSUserDefaults.standardUserDefaults().setObjectForKey(

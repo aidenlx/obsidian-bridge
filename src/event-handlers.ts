@@ -8,7 +8,7 @@ import {
 } from "@alx-plugins/marginnote";
 import PopupRecorder from "modules/PopupRecorder";
 import { showHUD } from "modules/tools";
-import { addonOnName } from "togglePlugin";
+import { addonOnName } from "toggle-addon";
 
 import { SendNote, SendSel, SendToc } from "./modules/sender";
 

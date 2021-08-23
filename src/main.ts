@@ -5,7 +5,7 @@ import {
   pluginName,
   toggleHandlerName,
   togglePlugin,
-} from "togglePlugin";
+} from "toggle-addon";
 
 import {
   bindEventHandlers,

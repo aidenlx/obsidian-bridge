@@ -1,5 +1,19 @@
 import { MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
+import { DateCvt, NonTypeProps, TypePropNames } from "./type-tools";
+
+export type Book = DateCvt<MbBook>;
+type note_valOnly = NonTypeProps<MbBookNote, Function>;
+type note_dateCvt = DateCvt<note_valOnly>;
+export type Note = NonTypeProps<
+  note_dateCvt,
+  MbBookNote | MbBookNote[] | undefined
+> &
+  {
+    [P in TypePropNames<note_dateCvt, MbBookNote | undefined>]?: Note;
+  } &
+  { [P in TypePropNames<note_dateCvt, MbBookNote[]>]: Note[] };
+
 export type Selection = { sel: string; book?: MbBook };
 export type inHistory = Data | null;
 export type time = number | null;
@@ -8,7 +22,7 @@ export type item = {
   addTime: Exclude<time, null>;
 } | null;
 
-export type Data = Selection | MbBookNote | Toc;
+export type Data = Selection | Note | Toc;
 export type DataType = "sel" | "note" | "toc";
 
 export type MNMark = "<!--MN-->\n";
@@ -25,21 +39,21 @@ export type ReturnBody = ReturnBody_Note | ReturnBody_Sel | ReturnBody_Toc;
 export interface ReturnBody_Sel extends ReturnBody_Basic {
   type: "sel";
   data: Selection;
-  book?: MbBook;
+  book?: Book;
 }
 
 export interface ReturnBody_Note extends ReturnBody_Basic {
   type: "note";
-  data: MbBookNote;
+  data: Note;
   /** id - base64(png) pair */
   mediaMap: Record<string, string>;
-  bookMap: Record<string, MbBook>;
+  bookMap: Record<string, Book>;
 }
 
 export interface ReturnBody_Toc extends ReturnBody_Basic {
   type: "toc";
   data: Toc;
-  bookMap: Record<string, MbBook>;
+  bookMap: Record<string, Book>;
 }
 export interface Toc {
   noteTitle: string;

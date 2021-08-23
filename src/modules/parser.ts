@@ -2,6 +2,7 @@ import { excerptPic_video, MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
 import PopupRecorder from "./PopupRecorder";
 import {
+  Book,
   Data,
   ReturnBody,
   ReturnBody_Note,
@@ -10,14 +11,13 @@ import {
   Selection,
 } from "./return";
 import { scanNote, scanObject, scanToc } from "./scan";
-import { showHUD } from "./tools";
 
-const getBook = (docMd5: string | undefined): MbBook | null => {
+const getBook = (docMd5: string | undefined): Book | null => {
   const bookObj =
     docMd5 && typeof docMd5 === "string"
       ? Database.sharedInstance().getDocumentById(docMd5)
       : null;
-  return bookObj ? scanObject(bookObj) : null;
+  return bookObj ? (scanObject(bookObj) as Book) : null;
 };
 
 const getLastAndSendTime = (

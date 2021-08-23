@@ -1,7 +1,7 @@
 import { MbBookNote } from "@alx-plugins/marginnote";
 
-import { RequiredKeys } from "./optional";
-import { Toc } from "./return";
+import { Note, Toc } from "./return";
+import { RequiredKeys } from "./type-tools";
 
 /**
  * @returns when note missing params, return error message
@@ -67,17 +67,19 @@ export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
 export const scanNote = (
   note: MbBookNote,
   depth = 1,
-): [note: MbBookNote, bookMd5s: string[]] => {
+): [note: Note, bookMd5s: string[]] => {
   let bookMd5s: Set<string> = new Set();
 
   const generalScan = getScanFunc(depth),
-    scan = (obj: MbBookNote, dive?: boolean, accu: number = 0): MbBookNote => {
+    scan = (obj: MbBookNote, dive?: boolean, accu: number = 0): Note => {
       let out: any = {};
       for (const k of getAllProperties(obj)) {
         const key = k as keyof MbBookNote;
         let value;
         if (accu < depth) {
-          if (key === "docMd5" && obj.docMd5) {
+          if (obj[key] instanceof Date) {
+            value = (obj[key] as Date).getTime();
+          } else if (key === "docMd5" && obj.docMd5) {
             bookMd5s.add(obj.docMd5);
             value = obj.docMd5;
           } else if (
@@ -128,7 +130,9 @@ const getScanFunc = (depth: number) => {
       for (const key of getAllProperties(obj)) {
         let value;
         if (accu < depth) {
-          if (
+          if (obj[key] instanceof Date) {
+            value = (obj[key] as Date).getTime();
+          } else if (
             key === "parentNote" &&
             (dive === undefined || !dive) &&
             isMbBookNote(obj[key])

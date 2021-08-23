@@ -17,7 +17,7 @@
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
-    "@alx-plugins/marginnote": "^1.8.3",
+    "@alx-plugins/marginnote": "^1.8.4",
     "@jsonurl/jsonurl": "^1.1.4",
     "@release-it/bumper": "^3.0.1",
     "@release-it/conventional-changelog": "^3.3.0",
@@ -27,6 +27,7 @@
     "@types/url-parse": "^1.4.4",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
+    "assert-never": "^1.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -36,6 +37,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "obsidian": "^0.12.11",
     "prettier": "^2.3.2",
     "query-string": "^6.14.1",
     "release-it": "^14.11.5",
@@ -49,7 +51,7 @@
     "url-parse": "^1.5.3"
   },
   "peerDependencies": {
-    "@alx-plugins/marginnote": "^1.8.3"
+    "@alx-plugins/marginnote": "^1.8.4"
   },
   "release-it": {
     "hooks": {

@@ -1,3 +1,5 @@
+import { osType } from "@alx-plugins/marginnote";
+
 import { scanObject } from "./scan";
 
 export const getWordCount = (src: string) => {
@@ -48,3 +50,5 @@ const debug = (obj: any) => {
  */
 export const getObjCClassDeclar = (name: string, type: string) =>
   `${name} : ${type}`;
+
+export const isMac = () => Application.sharedInstance().osType === osType.macOS;

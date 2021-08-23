@@ -1,5 +1,5 @@
 import { NotifySender } from "@alx-plugins/marginnote";
-import { showHUD } from "modules/tools";
+import { isMac, showHUD } from "modules/tools";
 import gt from "modules/translate";
 
 export const pluginName = "obsidian-bridge";
@@ -22,7 +22,7 @@ export const togglePlugin = (sender: NotifySender) => {
 
   if (!self[addonOnName]) {
     toggleAddon();
-    showHUD(gt("hint_addon_enabled"));
+    showHUD(isMac() ? gt("addon") + gt("enabled") : gt("hint_addon_enabled"));
   } else
     UIAlertView.showWithTitleMessageStyleCancelButtonTitleOtherButtonTitlesTapBlock(
       gt("toggle_title"),

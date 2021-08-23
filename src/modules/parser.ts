@@ -1,6 +1,5 @@
-import { excerptPic_video, MbBook, MbBookNote } from "@alx-plugins/marginnote";
+import { excerptPic_video, MbBookNote } from "@alx-plugins/marginnote";
 
-import PopupRecorder from "./PopupRecorder";
 import {
   Book,
   Data,
@@ -9,7 +8,8 @@ import {
   ReturnBody_Sel,
   ReturnBody_Toc,
   Selection,
-} from "./return";
+} from "../return";
+import PopupRecorder from "./PopupRecorder";
 import { scanNote, scanObject, scanToc } from "./scan";
 
 const getBook = (docMd5: string | undefined): Book | null => {

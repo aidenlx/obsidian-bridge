@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "module": "ESNext",
+    "target": "es6",
+    "allowJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "strict": true,
+    "declaration": true,
+    "lib": ["ES2020"],
+    "outDir": "lib",
+    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }]
+  },
+  "include": ["src/**/*.ts"]
+}

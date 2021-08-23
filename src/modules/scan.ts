@@ -1,6 +1,6 @@
 import { MbBookNote } from "@alx-plugins/marginnote";
 
-import { Note, Toc } from "./return";
+import { Note, Toc } from "../return";
 import { RequiredKeys } from "./type-tools";
 
 /**

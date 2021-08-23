@@ -1,4 +1,4 @@
-import { inHistory, item, time } from "./return";
+import { inHistory, item, time } from "../return";
 
 export default class PopupRecorder {
   private history: Array<inHistory>;

@@ -1,7 +1,7 @@
 import { MbBookNote } from "@alx-plugins/marginnote";
 
+import { ReturnBody, Selection } from "../return";
 import { getBody_Note, getBody_Sel, getBody_Toc } from "./parser";
-import { ReturnBody, Selection } from "./return";
 import { showHUD } from "./tools";
 import getText from "./translate";
 import { ObjToUrl } from "./url-obj";

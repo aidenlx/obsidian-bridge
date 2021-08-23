@@ -1,6 +1,6 @@
 import { MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
-import { DateCvt, NonTypeProps, TypePropNames } from "./type-tools";
+import { DateCvt, NonTypeProps, TypePropNames } from "./modules/type-tools";
 
 export type Book = DateCvt<MbBook>;
 type note_valOnly = NonTypeProps<MbBookNote, Function>;
@@ -24,8 +24,6 @@ export type item = {
 
 export type Data = Selection | Note | Toc;
 export type DataType = "sel" | "note" | "toc";
-
-export type MNMark = "<!--MN-->\n";
 
 type ReturnBody_Basic = {
   type: DataType;

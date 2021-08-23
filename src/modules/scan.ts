@@ -46,7 +46,7 @@ export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
           }
         }
       }
-      value = obj[key];
+      if (!value) value = obj[key];
       Object.defineProperty(out, key, {
         value,
         writable: true,
@@ -108,7 +108,7 @@ export const scanNote = (
             }
           }
         }
-        value = obj[key];
+        if (!value) value = obj[key];
         Object.defineProperty(out, key, {
           value,
           writable: true,
@@ -125,38 +125,40 @@ const getScanFunc = (depth: number) => {
   const scan = (obj: any, dive?: boolean, accu: number = 0): any => {
     if (typeof obj !== "undefined" && obj !== null) {
       let out: any = {};
-      for (const k of getAllProperties(obj)) {
+      for (const key of getAllProperties(obj)) {
         let value;
         if (accu < depth) {
           if (
-            k === "parentNote" &&
+            key === "parentNote" &&
             (dive === undefined || !dive) &&
-            isMbBookNote(obj[k])
+            isMbBookNote(obj[key])
           ) {
             try {
-              value = scan(obj[k], false, accu + 1);
+              value = scan(obj[key], false, accu + 1);
             } catch (error) {
-              value = `Error scaning: ${k} accu: ${accu}`;
+              value = `Error scaning: ${key} accu: ${accu}`;
             }
           } else if (
-            k === "childNotes" &&
+            key === "childNotes" &&
             (dive === undefined || dive) &&
-            Array.isArray(obj[k])
+            Array.isArray(obj[key])
           ) {
             try {
-              value = (obj[k] as any[]).map((v) => scan(v, true, accu + 1));
+              value = (obj[key] as any[]).map((v) => scan(v, true, accu + 1));
             } catch (error) {
-              value = `Error scaning: ${k} accu: ${accu}`;
+              value = `Error scaning: ${key} accu: ${accu}`;
             }
-          } else if (k === "excerptPic") {
+          } else if (key === "excerptPic") {
             try {
-              value = scan(obj[k], false, accu + 1);
+              value = scan(obj[key], false, accu + 1);
             } catch (error) {
-              value = `Error scaning: ${k} accu: ${accu}`;
+              value = `Error scaning: ${key} accu: ${accu}`;
             }
-          } else value = obj[k];
-        } else value = obj[k];
-        Object.defineProperty(out, k, {
+          }
+        }
+        if (!value) value = obj[key];
+
+        Object.defineProperty(out, key, {
           value,
           writable: true,
           enumerable: true,

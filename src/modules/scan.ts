@@ -6,9 +6,7 @@ import { Toc } from "./return";
 /**
  * @returns when note missing params, return error message
  */
-export const scanToc = (
-  note: MbBookNote,
-): [note: Toc, bookMd5s: string[]] | string => {
+export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
   const depth = 99;
   let invaild: string[] = [],
     bookMd5s: Set<string> = new Set();
@@ -62,8 +60,9 @@ export const scanToc = (
   const result = scan(note);
   if (!result) {
     JSB.log("🌈🌈🌈 MNLOG toc: invaild param\n" + invaild.join("\n"));
+    throw new EvalError("invaild param: " + invaild.join(","));
   }
-  return result ? [result, [...bookMd5s]] : invaild.join("\n");
+  return [result, [...bookMd5s]];
 };
 export const scanNote = (
   note: MbBookNote,

@@ -1,6 +1,5 @@
 import {
   ChangeExcerptRange_Sender,
-  DocumentController,
   EventHandler,
   NotifySender,
   PopupMenuOnNote_Sender,
@@ -11,7 +10,7 @@ import PopupRecorder from "modules/PopupRecorder";
 import { showHUD } from "modules/tools";
 import { addonOnName } from "togglePlugin";
 
-import { handleNote, handleSel, handleToc } from "./modules/parser";
+import { SendNote, SendSel, SendToc } from "./modules/sender";
 
 export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
   if (
@@ -35,7 +34,7 @@ export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
 
     const note = sender.userInfo.note;
 
-    self.tocMode ? handleToc(note) : handleNote(note);
+    self.tocMode ? SendToc(note) : SendNote(note);
   } catch (error) {
     showHUD(error.toString());
   }
@@ -57,7 +56,7 @@ export const onPopupMenuOnSelection = (sender: PopupMenuOnSelection_Sender) => {
     const { selectionText: sel, document: book } =
       sender.userInfo.documentController;
     if (sel && sel.length) {
-      handleSel({ sel, book });
+      SendSel({ sel, book });
     }
   } catch (error) {
     showHUD(error.toString());

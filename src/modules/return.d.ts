@@ -14,14 +14,13 @@ export type DataType = "sel" | "note" | "toc";
 export type MNMark = "<!--MN-->\n";
 
 type ReturnBody_Basic = {
-  version: string;
   type: DataType;
   sendTime: ReturnType<typeof Date.now>;
   data: Data;
   last: item | null;
 };
 
-export type ReturnBody = ReturnBody_Note | ReturnBody_Sel;
+export type ReturnBody = ReturnBody_Note | ReturnBody_Sel | ReturnBody_Toc;
 
 export interface ReturnBody_Sel extends ReturnBody_Basic {
   type: "sel";

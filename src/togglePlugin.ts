@@ -29,7 +29,7 @@ export const togglePlugin = (sender: NotifySender) => {
 
   if (!self[addonOnName]) {
     toggleAddon();
-    showHUD(gt("addon") + gt("enabled"));
+    showHUD(gt("hint_addon_enabled"));
   } else
     UIAlertView.showWithTitleMessageStyleCancelButtonTitleOtherButtonTitlesTapBlock(
       gt("toggle_title"),

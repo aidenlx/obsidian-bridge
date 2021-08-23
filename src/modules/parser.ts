@@ -1,6 +1,5 @@
 import { excerptPic_video, MbBook, MbBookNote } from "@alx-plugins/marginnote";
 
-import { PREFIX, VERSION } from "./const";
 import PopupRecorder from "./PopupRecorder";
 import {
   Data,
@@ -11,8 +10,7 @@ import {
   Selection,
 } from "./return";
 import { scanNote, scanObject, scanToc } from "./scan";
-import { copy, showHUD } from "./tools";
-import getText from "./translate";
+import { showHUD } from "./tools";
 
 const getBook = (docMd5: string | undefined): MbBook | null => {
   const bookObj =
@@ -20,10 +18,6 @@ const getBook = (docMd5: string | undefined): MbBook | null => {
       ? Database.sharedInstance().getDocumentById(docMd5)
       : null;
   return bookObj ? scanObject(bookObj) : null;
-};
-
-const stringify = (obj: any): string => {
-  return PREFIX + JSON.stringify(obj);
 };
 
 const getLastAndSendTime = (
@@ -34,16 +28,15 @@ const getLastAndSendTime = (
   return { last, sendTime: rec.push(data) };
 };
 
-export const handleSel = (sel: Selection): void => {
+export const getBody_Sel = (sel: Selection): ReturnBody_Sel => {
   const { last, sendTime } = getLastAndSendTime(sel);
-  const returns: ReturnBody_Sel = {
-    version: VERSION,
+  if (sel.book) sel.book = scanObject(sel.book);
+  return {
     type: "sel",
     sendTime,
     data: sel,
     last,
   };
-  copy(stringify(returns));
 };
 
 const arrToObj = <V>(
@@ -56,7 +49,7 @@ const arrToObj = <V>(
     return obj;
   }, {} as any) as Record<string, V>;
 
-export const handleNote = (note: MbBookNote): void => {
+export const getBody_Note = (note: MbBookNote): ReturnBody_Note => {
   const [data, bookMd5s] = scanNote(note, 2),
     { last, sendTime } = getLastAndSendTime(data),
     bookMap = arrToObj(bookMd5s, (id) => getBook(id));
@@ -75,8 +68,7 @@ export const handleNote = (note: MbBookNote): void => {
           })
         : {};
 
-  const returns: ReturnBody_Note = {
-    version: VERSION,
+  return {
     type: "note",
     sendTime,
     bookMap,
@@ -84,28 +76,19 @@ export const handleNote = (note: MbBookNote): void => {
     data,
     last,
   };
-  copy(stringify(returns));
 };
 
-export const handleToc = (note: MbBookNote): void => {
+export const getBody_Toc = (note: MbBookNote): ReturnBody_Toc => {
   // if (note.parentNote) return;
   const result = scanToc(note);
-  if (typeof result !== "string") {
-    const [data, bookMd5s] = result,
-      { last, sendTime } = getLastAndSendTime(data),
-      bookMap = arrToObj(bookMd5s, (id) => getBook(id));
-    const returns: ReturnBody_Toc = {
-      version: VERSION,
-      type: "toc",
-      sendTime,
-      bookMap,
-      data,
-      last,
-    };
-    copy(stringify(returns));
-    showHUD(getText("hint_toc_success") + note.noteTitle);
-  } else showHUD(result);
+  const [data, bookMd5s] = result,
+    { last, sendTime } = getLastAndSendTime(data),
+    bookMap = arrToObj(bookMd5s, (id) => getBook(id));
+  return {
+    type: "toc",
+    sendTime,
+    bookMap,
+    data,
+    last,
+  };
 };
-
-const isSel = (node: Data): node is Selection =>
-  typeof (node as Selection).sel === "string";

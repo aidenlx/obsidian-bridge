@@ -12,6 +12,10 @@ const text = {
     "⚠️仍处于获取目录模式",
     "⚠️Fetch TOC Mode is still enabled",
   ],
+  hint_addon_enabled: [
+    "注意：该插件启用时，选择文本或笔记均会唤醒Obsidian",
+    "Note: With addon enabled, selecting text or notes will open Obsidian",
+  ],
   off: ["⛔️关闭", "⛔️Disable "],
   on: ["✅开启", "✅Enable "],
   disabled: ["已关闭", " Disabled"],

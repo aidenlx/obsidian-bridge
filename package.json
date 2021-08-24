@@ -1,5 +1,5 @@
 {
-  "name": "@alx-plugins/obsidian-bridge",
+  "name": "@aidenlx/obsidian-bridge",
   "version": "2.2.0",
   "description": "MarginNote 3 --> Obsidian",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "rollup --config rollup.config.js",
-    "build": "rollup --config rollup.config.js --environment BUILD:production",
+    "build": "rm -rf lib && rollup --config rollup.config.js --environment BUILD:production",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
     "eslint": "eslint src/**/* --ext .ts,.tsx --fix",
     "release": "release-it"
@@ -57,6 +57,9 @@
   },
   "peerDependencies": {
     "@alx-plugins/marginnote": "^1.8.4"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "release-it": {
     "hooks": {

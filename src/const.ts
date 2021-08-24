@@ -1,6 +1,6 @@
 import compareVersions from "compare-versions";
 
-const version = "2.2.0";
+const version = "2.2.1";
 export const VERSION: string = version;
 export const PREFIX = `<!--MN^${version}-->\n`;
 export const PREFIX_REGEX = /^<!--MN\^([\d.]+)-->\n/;

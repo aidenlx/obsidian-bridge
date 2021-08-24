@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.2.0...2.2.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* **toggle-addon:** fix hint when addon enabled ([91e7b23](https://github.com/alx-plugins/obsidian-bridge/commit/91e7b238ad9e1004a4fb35021f7fb21a46d0b44b))
+
 # [2.2.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.1.0...2.2.0) (2021-08-23)
 
 

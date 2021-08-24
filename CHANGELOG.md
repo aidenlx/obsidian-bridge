@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.2.1...2.3.0) (2021-08-24)
+
+
+### Features
+
+* **lib:** expose JsonToObj ([3caa608](https://github.com/alx-plugins/obsidian-bridge/commit/3caa6087058b40ceb3e4fbbb844455961548115d))
+
 ## [2.2.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.2.0...2.2.1) (2021-08-24)
 
 

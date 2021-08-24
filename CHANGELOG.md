@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.0...2.3.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* **lib:** fix type error ([44aa04c](https://github.com/alx-plugins/obsidian-bridge/commit/44aa04c6fe87c7bc1e2157d670dd3c28dcd273ff))
+
 # [2.3.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.2.1...2.3.0) (2021-08-24)
 
 

@@ -9,7 +9,7 @@ import {
   ReturnBody_Toc,
   Selection,
 } from "../return";
-import PopupRecorder from "./PopupRecorder";
+import PopupRecorder from "./recorder";
 import { scanNote, scanObject, scanToc } from "./scan";
 
 const getBook = (docMd5: string | undefined): Book | null => {

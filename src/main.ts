@@ -12,7 +12,7 @@ import {
   onPopupMenuOnNote,
   onPopupMenuOnSelection,
 } from "./event-handlers";
-import PopupRecorder from "./modules/PopupRecorder";
+import PopupRecorder from "./modules/recorder";
 import getText from "./modules/translate";
 
 const bindEvt = bindEventHandlers([

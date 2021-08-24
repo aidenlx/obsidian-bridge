@@ -6,7 +6,7 @@ import {
   PopupMenuOnSelection_Sender,
   ProcessNewExcerpt_Sender,
 } from "@alx-plugins/marginnote";
-import PopupRecorder from "modules/PopupRecorder";
+import PopupRecorder from "modules/recorder";
 import { showHUD } from "modules/tools";
 import { addonOnName } from "toggle-addon";
 

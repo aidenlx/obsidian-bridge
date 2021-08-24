@@ -69,6 +69,7 @@
       ],
       "after:bump": [
         "sed -i '' -E -e 's/const version = \"[0-9.]+\"/const version = \"${version}\"/' src/const.ts",
+        "sed -i '' \"s/MarginNote v.*$/MarginNote v$(cat mnaddon.json | json marginnote_version_min)+./\" README.md",
         "git add .",
         "npm run build"
       ],

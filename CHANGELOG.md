@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.1...2.3.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* **url-obj:** fix data loss during conversion ([2b3ca72](https://github.com/alx-plugins/obsidian-bridge/commit/2b3ca72082229ef104f8407d50d44ce35f9de7d4))
+
 ## [2.3.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.0...2.3.1) (2021-08-24)
 
 

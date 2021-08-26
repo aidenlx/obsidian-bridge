@@ -37,7 +37,6 @@ export type ReturnBody = ReturnBody_Note | ReturnBody_Sel | ReturnBody_Toc;
 export interface ReturnBody_Sel extends ReturnBody_Basic {
   type: "sel";
   data: Selection;
-  book?: Book;
 }
 
 export interface ReturnBody_Note extends ReturnBody_Basic {

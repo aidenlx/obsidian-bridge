@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.2...2.3.3) (2021-08-26)
+
+
+### Bug Fixes
+
+* **api:** fix ReturnBody_Sel def ([91ee051](https://github.com/alx-plugins/obsidian-bridge/commit/91ee051b71d86f0507cff3fd10b3a59a6e7bbc73))
+
 ## [2.3.2](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.1...2.3.2) (2021-08-25)
 
 

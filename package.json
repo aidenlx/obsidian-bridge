@@ -1,6 +1,6 @@
 {
   "name": "@aidenlx/obsidian-bridge",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "MarginNote 3 --> Obsidian",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

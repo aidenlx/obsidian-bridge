@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.4.0...2.4.1) (2021-08-28)
+
+
+### Performance Improvements
+
+* **scan:** reduce childNotes scan level to avoid performance issue ([6b89405](https://github.com/alx-plugins/obsidian-bridge/commit/6b89405a250bf7758c8a1f5dbc6b84e9f05d4eb3))
+
 # [2.4.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.3...2.4.0) (2021-08-28)
 
 

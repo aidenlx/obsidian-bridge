@@ -42,6 +42,7 @@ export interface ReturnBody_Sel extends ReturnBody_Basic {
 export interface ReturnBody_Note extends ReturnBody_Basic {
   type: "note";
   data: Note;
+  linkedNotes: Record<string, Note>;
   /** id - base64(png) pair */
   mediaMap: Record<string, string>;
   bookMap: Record<string, Book>;

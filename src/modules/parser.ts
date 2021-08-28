@@ -1,8 +1,13 @@
-import { excerptPic_video, MbBookNote } from "@alx-plugins/marginnote";
+import {
+  excerptPic_video,
+  linkComment,
+  MbBookNote,
+} from "@alx-plugins/marginnote";
 
 import {
   Book,
   Data,
+  Note,
   ReturnBody,
   ReturnBody_Note,
   ReturnBody_Sel,
@@ -40,39 +45,73 @@ export const getBody_Sel = (sel: Selection): ReturnBody_Sel => {
 };
 
 const arrToObj = <V>(
-  arr: string[],
   cvt: (id: string) => V | null,
-): Record<string, V> =>
-  arr.reduce((obj, id) => {
+  ...arrs: string[][]
+): Record<string, V> => {
+  let obj = {} as any;
+  for (const id of new Set(arrs.flat())) {
     const val = cvt(id);
     if (val) obj[id] = val;
-    return obj;
-  }, {} as any) as Record<string, V>;
+  }
+  return obj;
+};
 
+const getLinkedNotes = (
+  note: MbBookNote,
+): [map: Record<string, Note>, bookMd5s: string[], mediaIds: string[]] => {
+  const { linkedNotes, comments } = note,
+    linkedIds1 =
+      linkedNotes?.map((v) => v.noteid).filter((v) => Boolean(v)) ?? [],
+    linkedIds2 =
+      comments
+        .filter<linkComment>((c): c is linkComment => c.type === "LinkNote")
+        .map((v) => v.noteid) ?? [];
+  if (linkedIds1.length === 0 && linkedIds2.length === 0) return [{}, [], []];
+
+  let book: string[][] = [],
+    media: string[][] = [],
+    map = arrToObj(
+      (id) => {
+        const note = Database.sharedInstance().getNoteById(id);
+        if (!note) return null;
+        const [data, bookMd5s] = scanNote(note, 1);
+        book.push(bookMd5s);
+        media.push(getMediaIds(note));
+        return data;
+      },
+      linkedIds1,
+      linkedIds2,
+    );
+  return [map, book.flat(), media.flat()];
+};
+
+const getMediaIds = (note: MbBookNote) => {
+  const videoId = (note.excerptPic as excerptPic_video)?.video,
+    mediaIds = note.mediaList?.split("-").filter((id) => id !== videoId);
+  return mediaIds ?? [];
+};
 export const getBody_Note = (note: MbBookNote): ReturnBody_Note => {
-  const [data, bookMd5s] = scanNote(note, 2),
+  const [data, bookMd5s] = scanNote(note, 1),
     { last, sendTime } = getLastAndSendTime(data),
-    bookMap = arrToObj(bookMd5s, (id) => getBook(id));
-
-  const videoId = (data.excerptPic as excerptPic_video)?.video,
-    mediaIds = note.mediaList?.split("-").filter((id) => id !== videoId),
-    mediaMap =
-      mediaIds && mediaIds.length > 0
-        ? arrToObj(mediaIds, (id) => {
-            const mediaData = Database.sharedInstance()
-              .getMediaByHash(id)
-              ?.base64Encoding();
-            return mediaData && mediaData.startsWith("iVBORw0K")
-              ? mediaData
-              : null;
-          })
-        : {};
+    [linkedNotes, bookL, mediaL] = getLinkedNotes(note),
+    bookMap = arrToObj((id) => getBook(id), bookMd5s, bookL),
+    mediaMap = arrToObj(
+      (id) => {
+        const mediaData = Database.sharedInstance()
+          .getMediaByHash(id)
+          ?.base64Encoding();
+        return mediaData && mediaData.startsWith("iVBORw0K") ? mediaData : null;
+      },
+      getMediaIds(note),
+      mediaL,
+    );
 
   return {
     type: "note",
     sendTime,
     bookMap,
     mediaMap,
+    linkedNotes,
     data,
     last,
   };
@@ -83,7 +122,7 @@ export const getBody_Toc = (note: MbBookNote): ReturnBody_Toc => {
   const result = scanToc(note);
   const [data, bookMd5s] = result,
     { last, sendTime } = getLastAndSendTime(data),
-    bookMap = arrToObj(bookMd5s, (id) => getBook(id));
+    bookMap = arrToObj((id) => getBook(id), bookMd5s);
   return {
     type: "toc",
     sendTime,

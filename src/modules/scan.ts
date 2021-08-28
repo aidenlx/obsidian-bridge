@@ -95,7 +95,8 @@ export const scanNote = (
           } else if (
             key === "childNotes" &&
             (dive === undefined || dive) &&
-            Array.isArray(obj[key])
+            Array.isArray(obj[key]) &&
+            accu < depth - 1
           ) {
             try {
               value = obj.childNotes.map((v) => scan(v, true, accu + 1));
@@ -145,7 +146,8 @@ const getScanFunc = (depth: number) => {
           } else if (
             key === "childNotes" &&
             (dive === undefined || dive) &&
-            Array.isArray(obj[key])
+            Array.isArray(obj[key]) &&
+            accu < depth - 1
           ) {
             try {
               value = (obj[key] as any[]).map((v) => scan(v, true, accu + 1));

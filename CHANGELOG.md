@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.3...2.4.0) (2021-08-28)
+
+
+### Features
+
+* **api:** add linkNotes to data ([04737b6](https://github.com/alx-plugins/obsidian-bridge/commit/04737b6a0eff781c8fa0920f9b11da5aa30ccc75))
+
 ## [2.3.3](https://github.com/alx-plugins/obsidian-bridge/compare/2.3.2...2.3.3) (2021-08-26)
 
 

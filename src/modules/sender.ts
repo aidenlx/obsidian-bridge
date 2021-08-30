@@ -8,7 +8,7 @@ import { ObjToJson, ObjToUrl } from "./url-obj";
 
 export const SendToc = (src: MbBookNote): void => {
   try {
-    ObjToUrl(getBody_Toc(src));
+    send(getBody_Toc(src));
     showHUD(getText("hint_toc_success") + src.noteTitle);
   } catch (error) {
     showHUD(error);

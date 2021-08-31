@@ -1,6 +1,7 @@
 import { MbBookNote } from "@alx-plugins/marginnote";
 
 import { Note, Toc } from "../return";
+import getText from "./translate";
 import { RequiredKeys } from "./type-tools";
 
 /**
@@ -24,7 +25,8 @@ export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
     if (
       requiredKeys.some((k) => {
         const result = obj[k] === null || obj[k] === undefined;
-        if (result) invaild.push(`${obj.noteTitle} missing prop ${k}`);
+        if (result)
+          invaild.push(`${obj.noteId} ${getText("missing_param")}: ${k}`);
         return result;
       })
     )

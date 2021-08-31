@@ -23,6 +23,7 @@ const text = {
   toc: ["获取目录模式", "TOC Fetch Mode"],
   addon: ["Obsidian Bridge", "Obsidian Bridge"],
   cancel: ["取消", "Cancel"],
+  missing_param: ["笔记缺少参数", "Missing params"],
 };
 
 const getLanguage = () =>

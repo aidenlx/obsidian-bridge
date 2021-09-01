@@ -12,15 +12,15 @@ export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
   let invaild: string[] = [],
     bookMd5s: Set<string> = new Set();
   const scan = (obj: MbBookNote, accu: number = 0): Toc | null => {
-    const requiredKeys: RequiredKeys<Toc>[] = [
-        "noteTitle",
-        "noteId",
-        "childNotes",
-      ],
+    const requiredKeys: RequiredKeys<Toc>[] = ["noteId", "childNotes"],
       keys = (requiredKeys as (keyof Toc)[]).concat(
         "docMd5",
         "startPage",
         "endPage",
+        "noteTitle",
+        "excerptText",
+        "toc",
+        "notesText",
       );
     if (
       requiredKeys.some((k) => {

@@ -54,11 +54,14 @@ export interface ReturnBody_Toc extends ReturnBody_Basic {
   bookMap: Record<string, Book>;
 }
 export interface Toc {
-  noteTitle: string;
   noteId: string;
+  noteTitle?: string;
   docMd5?: string;
   startPage?: number;
   endPage?: number;
+  excerptText?: string;
+  toc?: number;
+  notesText?: string;
 
   childNotes: Toc[];
 }

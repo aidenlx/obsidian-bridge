@@ -1,3 +1,21 @@
+# [3.0.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.4.1...3.0.0) (2021-09-01)
+
+
+### Bug Fixes
+
+* **scan:** update error prompt ([33e8312](https://github.com/alx-plugins/obsidian-bridge/commit/33e83128f26c7d3855574680862d81d0ef1d4f2f))
+* **sender:** fix toc data not being sent ([69cd000](https://github.com/alx-plugins/obsidian-bridge/commit/69cd000075d9a44c1d5e8a0e916d8b17373d82e5))
+
+
+### Features
+
+* **scan:** toc now expose more params ([903b0cd](https://github.com/alx-plugins/obsidian-bridge/commit/903b0cd065ec52905e8e22052bc6b678a0455b35))
+
+
+### BREAKING CHANGES
+
+* **scan:** toc.noteTitle is now optional
+
 ## [2.4.1](https://github.com/alx-plugins/obsidian-bridge/compare/2.4.0...2.4.1) (2021-08-28)
 
 

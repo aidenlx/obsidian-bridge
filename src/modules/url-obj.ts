@@ -1,4 +1,4 @@
-import JsonURL from "@jsonurl/jsonurl";
+import JsonURL from "@aidenlx/jsonurl";
 import { ObsidianProtocolData } from "obsidian";
 import { stringify as toQs } from "query-string";
 import URLParse from "url-parse";

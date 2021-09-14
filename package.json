@@ -18,8 +18,8 @@
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
+    "@aidenlx/jsonurl": "^1.0.1-SNAPSHOT",
     "@alx-plugins/marginnote": "^1.8.4",
-    "@jsonurl/jsonurl": "^1.1.4",
     "@release-it/bumper": "^3.0.1",
     "@release-it/conventional-changelog": "^3.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",

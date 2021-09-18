@@ -29,7 +29,12 @@ export const UrlToObj = (
   }
   const { version, body } = params as ObsidianProtocolData & QsObj;
   if (!version || !body) return null;
-  return [version, JsonURL.parse(body) as ReturnBody];
+  return [
+    version,
+    JsonURL.parse(body, {
+      maxParseChars: 1 << 30, // maximum 1GB
+    }) as ReturnBody,
+  ];
 };
 
 export const ObjToJson = (obj: ReturnBody): string =>

@@ -18,7 +18,7 @@
   "author": "AidenLx",
   "license": "MIT",
   "devDependencies": {
-    "@aidenlx/jsonurl": "^1.0.1-SNAPSHOT",
+    "@aidenlx/jsonurl": "^1.0.2-SNAPSHOT",
     "@alx-plugins/marginnote": "^1.8.4",
     "@release-it/bumper": "^3.0.1",
     "@release-it/conventional-changelog": "^3.3.0",

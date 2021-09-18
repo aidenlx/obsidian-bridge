@@ -36,7 +36,8 @@ export const onPopupMenuOnNote = (sender: PopupMenuOnNote_Sender) => {
 
     self.tocMode ? SendToc(note) : SendNote(note);
   } catch (error) {
-    showHUD(error.toString());
+    if (error instanceof Error) showHUD(error.toString());
+    else showHUD(JSON.stringify(error));
   }
 };
 
@@ -59,7 +60,8 @@ export const onPopupMenuOnSelection = (sender: PopupMenuOnSelection_Sender) => {
       SendSel({ sel, book });
     }
   } catch (error) {
-    showHUD(error.toString());
+    if (error instanceof Error) showHUD(error.toString());
+    else showHUD(JSON.stringify(error));
   }
 };
 

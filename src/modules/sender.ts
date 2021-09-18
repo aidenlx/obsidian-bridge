@@ -11,7 +11,8 @@ export const SendToc = (src: MbBookNote): void => {
     send(getBody_Toc(src));
     showHUD(getText("hint_toc_success") + src.noteTitle);
   } catch (error) {
-    showHUD(error);
+    if (error instanceof Error) showHUD(error.toString());
+    else showHUD(JSON.stringify(error));
   }
 };
 export const SendSel = (src: Selection): void => send(getBody_Sel(src));

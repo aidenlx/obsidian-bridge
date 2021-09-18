@@ -40,7 +40,8 @@ const debug = (obj: any) => {
   try {
     return JSON.stringify(scanObject(obj), replacer, 2);
   } catch (error) {
-    showHUD(error.toString());
+    if (error instanceof Error) showHUD(error.toString());
+    else showHUD(JSON.stringify(error));
     return null;
   }
 };

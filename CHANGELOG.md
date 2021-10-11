@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/alx-plugins/obsidian-bridge/compare/3.0.3...3.0.4) (2021-10-11)
+
+
+### Bug Fixes
+
+* **lib:** fix method not exported ([0144d7e](https://github.com/alx-plugins/obsidian-bridge/commit/0144d7e59904b588f1c21f3c8b4d9d32dbb8915a))
+
 ## [3.0.3](https://github.com/alx-plugins/obsidian-bridge/compare/3.0.2...3.0.3) (2021-10-11)
 
 

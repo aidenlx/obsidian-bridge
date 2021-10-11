@@ -3,11 +3,11 @@ import { ObsidianProtocolData } from "obsidian";
 import { stringify as toQs } from "query-string";
 import URLParse from "url-parse";
 
-import { PREFIX, PREFIX_REGEX, VERSION } from "../const";
+import { PREFIX, PREFIX_REGEX, URL_ACTION, VERSION } from "../const";
 import { ReturnBody } from "../return";
 
 export const ObjToUrl = (obj: ReturnBody): string => {
-  const url = URLParse("obsidian://mncomp"),
+  const url = URLParse("obsidian://" + URL_ACTION),
     qsObj: QsObj = {
       version: VERSION,
       body: JsonURL.stringify(obj) as string,
@@ -23,12 +23,9 @@ type QsObj = {
 export const UrlToObj = (
   params: ObsidianProtocolData,
 ): [version: string, body: ReturnBody] | null => {
-  if (params.version === "") {
-    console.error("version empty");
-    return null;
-  }
+  if (!isDataFromMN(params)) return null;
+
   const { version, body } = params as ObsidianProtocolData & QsObj;
-  if (!version || !body) return null;
   return [
     version,
     JsonURL.parse(body, {
@@ -42,6 +39,8 @@ export const ObjToJson = (obj: ReturnBody): string =>
 export const JsonToObj = (
   src: string,
 ): [version: string, body: ReturnBody] | null => {
+  if (!isDataFromMN(src)) return null;
+
   let match;
   if ((match = src.match(PREFIX_REGEX))) {
     const version = match[1],
@@ -49,3 +48,8 @@ export const JsonToObj = (
     return [version, JSON.parse(json)];
   } else return null;
 };
+
+export const isDataFromMN = (data: ObsidianProtocolData | string): boolean =>
+  typeof data === "string"
+    ? PREFIX_REGEX.test(data)
+    : data.action === URL_ACTION && !!data.version && !!data.body;

@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/alx-plugins/obsidian-bridge/compare/3.0.2...3.0.3) (2021-10-11)
+
+
+### Features
+
+* **lib:** add method to detect if input is from marginnote ([3f33905](https://github.com/alx-plugins/obsidian-bridge/commit/3f339059eb986a5d6c7ddbaa562de57c647394f2))
+
 # [3.0.0](https://github.com/alx-plugins/obsidian-bridge/compare/2.4.1...3.0.0) (2021-09-01)
 
 

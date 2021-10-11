@@ -11,4 +11,4 @@ export {
   Selection,
   Toc,
 } from "./return";
-export { JsonToObj, UrlToObj } from "modules/url-obj";
+export { isDataFromMN, JsonToObj, UrlToObj } from "modules/url-obj";

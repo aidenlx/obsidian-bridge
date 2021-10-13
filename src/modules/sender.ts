@@ -19,6 +19,6 @@ export const SendSel = (src: Selection): void => send(getBody_Sel(src));
 export const SendNote = (src: MbBookNote): void => send(getBody_Note(src));
 
 const send = (body: ReturnBody) =>
-  !isMac()
+  isMac()
     ? copy(ObjToJson(body))
     : Application.sharedInstance().openURL(NSURL.URLWithString(ObjToUrl(body)));
